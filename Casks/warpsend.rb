@@ -15,9 +15,14 @@ cask "warpsend" do
   desc "Fast, encrypted NAS-to-NAS file transfer — Desktop app"
   homepage "https://warpsend.io"
 
+  # The Desktop app is a thin shell that spawns `warpsend run` (the CLI
+  # supervisor) and opens its web UI in a native window. It cannot run
+  # without the CLI — depending on the formula guarantees both are installed
+  # together with a single `brew install --cask` command.
+  depends_on formula: "warpsend/tap/warpsend"
+
   app "WarpSend.app"
 
-  # Brew Cask auto-strips the quarantine flag, bypassing Gatekeeper warnings.
   zap trash: [
     "~/.config/warpsend",
     "~/Library/Application Support/io.warpsend.desktop",
