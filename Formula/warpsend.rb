@@ -7,19 +7,18 @@ class Warpsend < Formula
   on_macos do
     on_arm do
       url "https://app.warpsend.io/_agent/downloads/warpsend-aarch64-apple-darwin.tar.gz"
-      sha256 "7258ede2f85cfc6bf6a622c3e07a6a23c2f63d700def1fb1fe19330953fcaee3"
+      sha256 "d89924b84361b984cdb62d7c2266eef141c6f1e0de075b72887fe46f081cb19b"
     end
 
     on_intel do
-      url "https://app.warpsend.io/_agent/downloads/warpsend-x86_64-apple-darwin.tar.gz"
-      sha256 "119f380a685eb6b5c2b5ef96eda3d5dd0dae60ce5e27215e992c86616c5a0264"
+      odie "WarpSend does not support Intel macOS. Apple Silicon (M1/M2/M3/M4) only."
     end
   end
 
   on_linux do
     on_intel do
       url "https://app.warpsend.io/_agent/downloads/warpsend-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "ee7e914209d7596a3cf24f45655bdcafab9b8e048af93687014153aa51664ab4"
+      sha256 "4e4ba666b0ed98132a707e2f5a0f2c17cb6bb1c9af7e3195e6c3855c5de84abb"
     end
   end
 
