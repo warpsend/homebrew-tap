@@ -1,13 +1,13 @@
 class Warpsend < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "0.1.2"
+  version "18e442f"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://app.warpsend.io/_agent/downloads/warpsend-aarch64-apple-darwin.tar.gz"
-      sha256 "d89924b84361b984cdb62d7c2266eef141c6f1e0de075b72887fe46f081cb19b"
+      sha256 "4f294b0da50625c226715ef6f2d91aaf99ccf320eab0c91ff446574d08da19be"
     end
 
     on_intel do
@@ -18,12 +18,26 @@ class Warpsend < Formula
   on_linux do
     on_intel do
       url "https://app.warpsend.io/_agent/downloads/warpsend-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "4e4ba666b0ed98132a707e2f5a0f2c17cb6bb1c9af7e3195e6c3855c5de84abb"
+      sha256 "22e4adfe0f4b4c2db2fb98a24e846385d1cbe1846853f99872c09da3c04a0815"
     end
   end
 
   def install
     bin.install "warpsend"
+  end
+
+  def caveats
+    <<~EOS
+      To get started:
+
+        warpsend run
+
+      This downloads the agent daemon, opens the login UI, and starts
+      transferring. On macOS, you can also install the desktop app:
+
+        warpsend gui install
+        open /Applications/WarpSend.app
+    EOS
   end
 
   test do
