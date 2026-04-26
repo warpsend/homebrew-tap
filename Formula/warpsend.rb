@@ -1,13 +1,13 @@
 class Warpsend < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "18e442f"
+  version "abe29b5"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://app.warpsend.io/_agent/downloads/warpsend-aarch64-apple-darwin.tar.gz"
-      sha256 "4f294b0da50625c226715ef6f2d91aaf99ccf320eab0c91ff446574d08da19be"
+      sha256 "a1c457a7d71ed5022cf3026dcee0f9b07737e6bf7d1221086a25a212f56f5507"
     end
 
     on_intel do
@@ -16,10 +16,7 @@ class Warpsend < Formula
   end
 
   on_linux do
-    on_intel do
-      url "https://app.warpsend.io/_agent/downloads/warpsend-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "22e4adfe0f4b4c2db2fb98a24e846385d1cbe1846853f99872c09da3c04a0815"
-    end
+    odie "WarpSend on Linux is installed via apt-get, not Homebrew. See: https://app.warpsend.io/download"
   end
 
   def install
