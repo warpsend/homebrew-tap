@@ -1,13 +1,13 @@
 class WarpsendStaging < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "5604050"
+  version "32ba107"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://app-staging.warpsend.io/_agent/downloads/warpsend-aarch64-apple-darwin.tar.gz"
-      sha256 "dc6b03bcc4d6c76464868eb19e89e05aadb7dfc86ff693de960c7094ad4e001c"
+      sha256 "c4c2a6af40fdb36f151c0e2f2daab251f9a048d5d0ec9f5774646cf376932bc2"
     end
 
     on_intel do
@@ -24,10 +24,19 @@ class WarpsendStaging < Formula
   end
 
   def post_install
-    # Auto-point the CLI at the deployment that served this formula. The thin
-    # CLI reads `api_url` from ~/.config/warpsend/config.toml on every run; we
-    # write it here so users don't need to set WARPSEND_API_URL manually.
-    config_dir = Pathname.new(Dir.home)/".config/warpsend"
+    # Auto-point the CLI at the deployment that served this formula. The
+    # thin CLI uses dirs::config_dir() which is platform-dependent —
+    # ~/Library/Application Support/warpsend on macOS, ~/.config/warpsend
+    # on Linux. Earlier versions of this formula hardcoded the Linux
+    # path, so the override silently no-op'd on macOS and the daemon
+    # kept hitting whatever was baked at compile time (production)
+    # regardless of which formula the user picked. Match dirs::config_dir
+    # exactly so warpsend-staging actually points at staging.
+    config_dir = if OS.mac?
+      Pathname.new(Dir.home)/"Library/Application Support/warpsend"
+    else
+      Pathname.new(Dir.home)/".config/warpsend"
+    end
     config_dir.mkpath
     config_file = config_dir/"config.toml"
     api_url_line = 'api_url = "https://api-staging.warpsend.io"'
