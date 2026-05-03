@@ -23,31 +23,12 @@ class WarpsendStaging < Formula
     bin.install "warpsend"
   end
 
-  def post_install
-    # Auto-point the CLI at the deployment that served this formula. The
-    # thin CLI uses dirs::config_dir() which is platform-dependent —
-    # ~/Library/Application Support/warpsend on macOS, ~/.config/warpsend
-    # on Linux. Earlier versions of this formula hardcoded the Linux
-    # path, so the override silently no-op'd on macOS and the daemon
-    # kept hitting whatever was baked at compile time (production)
-    # regardless of which formula the user picked. Match dirs::config_dir
-    # exactly so warpsend-staging actually points at staging.
-    config_dir = if OS.mac?
-      Pathname.new(Dir.home)/"Library/Application Support/warpsend"
-    else
-      Pathname.new(Dir.home)/".config/warpsend"
-    end
-    config_dir.mkpath
-    config_file = config_dir/"config.toml"
-    api_url_line = 'api_url = "https://api-staging.warpsend.io"'
-    if config_file.exist? && config_file.read.match?(/^api_url\s*=/)
-      # Idempotent: rewrite the existing api_url line
-      new_content = config_file.read.gsub(/^api_url\s*=.*/, api_url_line)
-      config_file.atomic_write(new_content)
-    else
-      File.open(config_file, "a") { |f| f.puts api_url_line }
-    end
-  end
+  # No post_install: the api_url for this deployment is baked into the
+  # binary at build time via option_env!("WARPSEND_BUILD_API_URL"). Earlier
+  # versions wrote api_url into config.toml here, but Homebrew's sandbox
+  # blocks writes to ~/Library/Application Support/ on macOS so it silently
+  # failed and the CLI fell back to the hardcoded production URL. The
+  # compile-time embed makes this step unnecessary on every platform.
 
   def caveats
     <<~EOS
