@@ -1,13 +1,13 @@
 class Warpsend < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "8678a1e"
+  version "17b5d918dcf4"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://app.warpsend.io/_agent/downloads/warpsend-aarch64-apple-darwin.tar.gz"
-      sha256 "0d0d574c7db72cd166705d012d6f37f3121114926136abba26416c928802456a"
+      sha256 "7071b341d502037a85825f967b2214568bfb2b35540e365322b668b3bd999af5"
     end
 
     on_intel do
@@ -20,15 +20,16 @@ class Warpsend < Formula
   end
 
   def install
-    bin.install "warpsend"
+    libexec.install "warpsend"
+    bin.write_env_script libexec/"warpsend", {
+      "WARPSEND_API_URL" => "https://api.warpsend.io",
+      "WARPSEND_BREW_FORMULA" => "warpsend",
+    }
   end
 
-  # No post_install: the api_url for this deployment is baked into the
-  # binary at build time via option_env!("WARPSEND_BUILD_API_URL"). Earlier
-  # versions wrote api_url into config.toml here, but Homebrew's sandbox
-  # blocks writes to ~/Library/Application Support/ on macOS so it silently
-  # failed and the CLI fell back to the hardcoded production URL. The
-  # compile-time embed makes this step unnecessary on every platform.
+  # No post_install: Homebrew's sandbox blocks writes to
+  # ~/Library/Application Support/ on macOS. The wrapper injects the cloud
+  # channel at runtime instead, so staging and production can share one binary.
 
   def caveats
     <<~EOS
