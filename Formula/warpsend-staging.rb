@@ -1,13 +1,13 @@
 class WarpsendStaging < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "7944eb0b58e4"
+  version "0.1.0.202605312027"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://app-staging.warpsend.io/_agent/downloads/warpsend-aarch64-apple-darwin.tar.gz"
-      sha256 "d3713629c16a2c1287e915fc52e2b9eacfff2c70f005e0054cd47e9e48c2d197"
+      url "https://download-staging.warpsend.io/downloads/e8a4a43100ba/warpsend-aarch64-apple-darwin.a3808845a0ce.tar.gz"
+      sha256 "a3808845a0ce2b773c82572fabd5497e00cb8881f48b1d2cfabc57b1e0ebf89a"
     end
 
     on_intel do
@@ -21,7 +21,11 @@ class WarpsendStaging < Formula
 
   def install
     libexec.install "warpsend"
-    bin.write_env_script libexec/"warpsend", {
+    # NOTE: write_env_script the wrapper at bin/"warpsend" (a FILE), not on bin
+    # (the directory). Calling `bin.write_env_script` turns bin itself into a
+    # file under current Homebrew, so `brew link` finds nothing to link and the
+    # CLI never lands on PATH.
+    (bin/"warpsend").write_env_script libexec/"warpsend", {
       "WARPSEND_API_URL" => "https://api-staging.warpsend.io",
       "WARPSEND_BREW_FORMULA" => "warpsend-staging",
     }
