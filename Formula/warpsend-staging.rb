@@ -6,8 +6,8 @@ class WarpsendStaging < Formula
 
   on_macos do
     on_arm do
-      url "https://download-staging.warpsend.io/downloads/879d3509ee08/warpsend-aarch64-apple-darwin.0ab2c45a65cd.tar.gz"
-      sha256 "0ab2c45a65cdd97e9af40a4e52170a0f25c54dee52f6f210653556f9f561e89d"
+      url "https://download-staging.warpsend.io/downloads/879d3509ee08/warpsend-aarch64-apple-darwin.8daefb39c651.tar.gz"
+      sha256 "8daefb39c6512846956fbd70fde99053ce27ffd0c7db3ec69a343b4567c4ab4a"
     end
 
     on_intel do
