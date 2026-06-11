@@ -1,13 +1,13 @@
 class WarpsendStaging < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "0.1.0.202606062131"
+  version "0.1.0.202606090118"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://download-staging.warpsend.io/downloads/879d3509ee08/warpsend-aarch64-apple-darwin.8daefb39c651.tar.gz"
-      sha256 "8daefb39c6512846956fbd70fde99053ce27ffd0c7db3ec69a343b4567c4ab4a"
+      url "https://download-staging.warpsend.io/downloads/72c8ee755b3c/warpsend-aarch64-apple-darwin.8f48dd6e2750.tar.gz"
+      sha256 "8f48dd6e27500ca211044c771cb6a0e0f685e7d3c999cbd68c8cb995161a25d4"
     end
 
     on_intel do
@@ -41,11 +41,8 @@ class WarpsendStaging < Formula
 
         warpsend run
 
-      This downloads the agent daemon, opens the login UI, and starts
-      transferring. On macOS, you can also install the desktop app:
-
-        warpsend gui install
-        open /Applications/WarpSend.app
+      This installs the agent daemon, opens the login UI, and starts
+      transferring.
     EOS
   end
 
