@@ -1,13 +1,13 @@
 class WarpsendStaging < Formula
   desc "WarpSend thin CLI — single entry point for transfers and agent lifecycle"
   homepage "https://warpsend.io"
-  version "0.1.0.202606271208"
+  version "0.1.0.202606281903"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://download-staging.warpsend.io/downloads/07c9a1d1e0f5/warpsend-aarch64-apple-darwin.ab2bea8bb8db.tar.gz"
-      sha256 "ab2bea8bb8db58183a5c8abffbaafd129b9ffa8cbd1b40cb4c88f9af5a26a7eb"
+      url "https://download-staging.warpsend.io/downloads/7f5343ae89d7/warpsend-aarch64-apple-darwin.6c58a7083521.tar.gz"
+      sha256 "6c58a708352114841aeee431178e3fd281409b544fb9d0611d15c3f706b2bf35"
     end
 
     on_intel do
