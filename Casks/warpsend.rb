@@ -1,8 +1,8 @@
 cask "warpsend" do
-  version "1.0.0.202608190501"
-  sha256 "6ef2facc3a754564c10101e768f651a1b37280f52e66781a279b0bc23d6eb9cd"
+  version "1.0.0.202608191544"
+  sha256 "2c0607a2f99d4aa8a0953869f20734086f36069a1b760e20f64f8021b7823579"
 
-  url "https://download.warpsend.io/desktop/2f862c39e993/WarpSend-1.0.0-macos-aarch64.6ef2facc3a75.dmg"
+  url "https://download.warpsend.io/desktop/2d474c1add46/WarpSend-1.0.0-macos-aarch64.2c0607a2f99d.dmg"
   name "WarpSend"
   desc "NAS-to-NAS cross-region file transfer"
   homepage "https://warpsend.io"
