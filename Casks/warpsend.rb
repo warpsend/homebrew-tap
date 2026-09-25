@@ -4,7 +4,7 @@ cask "warpsend" do
 
   url "https://download.warpsend.io/desktop/66c076a1fa2c/WarpSend-1.0.0-macos-aarch64.fdbb2ac6b264.dmg"
   name "WarpSend"
-  desc "NAS-to-NAS cross-region file transfer"
+  desc "Large-file transfer with download links, file requests and computer-to-NAS sync"
   homepage "https://warpsend.io"
 
   depends_on arch: :arm64
