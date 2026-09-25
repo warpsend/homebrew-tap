@@ -1,48 +1,47 @@
 # WarpSend Homebrew Tap
 
-Official Homebrew tap for [WarpSend](https://warpsend.io) — fast, encrypted
-NAS-to-NAS file transfer.
+Official Homebrew tap for WarpSend (https://warpsend.io), the large-file transfer service by Luxira Limited.
+
+WarpSend is large-file transfer for creative teams — browser download links, file requests, and transfers and sync between computers and Synology NAS. The `warpsend` cask in this tap installs the WarpSend desktop app for Macs with Apple silicon.
 
 ## Install
 
 ```bash
-brew install warpsend/tap/warpsend
+brew install --cask warpsend/tap/warpsend
 ```
 
-This installs the `warpsend` CLI (~4MB), which is the single entry point
-on every platform. The CLI manages all other components:
+This puts `WarpSend.app` in `/Applications` and links the `warpsend` command-line tool it bundles onto your `PATH`. The app also bundles the background agent, so there is nothing else to download.
 
-```bash
-warpsend login          # Sign in
-warpsend gui install    # (macOS only) install the Desktop app
-warpsend run            # Start the supervisor (auto-downloads the agent daemon)
-```
+Open WarpSend and sign in. On first launch, macOS asks for an administrator password so WarpSend can install its background service, which starts when the Mac boots, before anyone logs in.
 
-The supervisor (`warpsend run`) automatically downloads and manages the
-heavy agent daemon from `app.warpsend.io/_agent/`. On macOS, the optional
-Desktop GUI (`warpsend gui install`) gives you a native window for the
-same web UI.
+The cask requires a Mac with Apple silicon. Homebrew won't install it on an Intel Mac.
 
 ## Upgrade
 
 ```bash
-brew upgrade warpsend
-warpsend gui update     # if you installed the Desktop app
+brew upgrade --cask warpsend
 ```
+
+The background agent keeps itself up to date; `brew upgrade` updates the app and the `warpsend` command. The upgrade stops WarpSend's background service while it replaces the app, so open WarpSend afterwards and approve the administrator prompt if macOS shows one. The app then sets the service up again.
 
 ## Uninstall
 
 ```bash
-warpsend gui uninstall  # remove the Desktop app
-warpsend agent stop     # stop the agent daemon
-brew uninstall warpsend # remove the CLI
+brew uninstall --cask warpsend
 ```
+
+This stops and removes the background service, the app, and the `warpsend` command. Homebrew may ask for your password to remove the service.
+
+WarpSend's configuration stays on the Mac, including its pairing with your WarpSend account, so reinstalling doesn't require pairing again. To remove the configuration as well:
+
+```bash
+brew uninstall --zap --cask warpsend
+```
+
+## Other platforms
+
+WarpSend also runs on Windows 10 and later (x64 and Arm64), Debian and Ubuntu Linux (x86_64), and x86_64 Synology NAS with DSM 7 or later. Download those installers from https://warpsend.io/download/.
 
 ## About this tap
 
-This repository contains the Homebrew formula that points to the `warpsend`
-CLI binary hosted at `app.warpsend.io/_agent/downloads/`. All other WarpSend
-components (agent daemon, Desktop app, web bundle) are downloaded on demand
-by the CLI itself — the tap only ships one formula.
-
-Source: https://github.com/warpsend/warpsend
+`Casks/warpsend.rb` is updated with each WarpSend release and installs the DMG from `download.warpsend.io`. `Formula/warpsend-staging.rb` is for testing pre-release builds against WarpSend's staging environment and isn't meant for general use.
