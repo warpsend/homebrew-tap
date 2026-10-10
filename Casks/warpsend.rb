@@ -1,8 +1,8 @@
 cask "warpsend" do
-  version "1.0.0.202609250837"
-  sha256 "c7df042d3429695c68ea9f210731cdd5c383aeec8a378704082ef6cac48f9d0a"
+  version "1.0.0.202610091715"
+  sha256 "932c8132525e775a11449783873fafb6b220fbdabf93ed8f793504839851f834"
 
-  url "https://download.warpsend.io/desktop/ea3ed8b5cb9b/WarpSend-1.0.0-macos-aarch64.c7df042d3429.dmg"
+  url "https://download.warpsend.io/desktop/a7163e51f7ea/WarpSend-1.0.0-macos-aarch64.932c8132525e.dmg"
   name "WarpSend"
   desc "Large-file transfer with download links, file requests and computer-to-NAS sync"
   homepage "https://warpsend.io/"
